@@ -1,14 +1,15 @@
-﻿using Domainn.Models;
+﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domainn.DAL
+namespace Domain.DAL
 {
     public class Context : DbContext
     {
-        public DbSet<Name> Names { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<person> People { get; set; }
 
         public Context()
         {
