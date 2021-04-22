@@ -9,7 +9,16 @@ namespace ObslugaWydarzenAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UczestnicyController : ControllerBase
+    public class SharedController : ControllerBase
     {
+        public SharedController()
+        {
+
+        }
+        [HttpGet]
+        public bool Get()
+        {
+            return true;
+        }
     }
 }
