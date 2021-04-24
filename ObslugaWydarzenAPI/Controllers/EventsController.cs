@@ -12,10 +12,10 @@ namespace ObslugaWydarzenAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
-    public class PeopleController : SharedController<person>
+
+    public class EventsController : SharedController<Event>
     {
-        public PeopleController(IRepository<person> repository) : base(repository)
+        public EventsController(IRepository<Event> repository) : base(repository)
         {
 
         }

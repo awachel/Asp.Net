@@ -1,0 +1,51 @@
+@URL = http://localhost:58601/api
+
+###
+
+
+GET {{URL}}/people
+Content-Type : application/json
+
+
+###
+
+GET {{URL}}/people/2
+Content-Type : application/json
+
+###
+
+
+POST {{URL}}/people
+Content-Type : application/json
+
+{
+  "id": 0,
+  "name": "string",
+  "surname": "string",
+  "emailAdress": "user@example.com",
+  "dateOfBirth": "2021-04-23T21:41:12.247Z",
+  "isAdult": true
+  
+}
+
+###
+
+PUT {{URL}}/people/2
+Content-Type : application/json
+
+
+{
+  "id": 2,
+  "name": "yyyyyyyyy",
+  "surname": "string",
+  "emailAdress": "user@example.com",
+  "dateOfBirth": "2021-04-23T21:41:12.247Z",
+  "isAdult": true
+  
+}
+
+###
+
+DELETE {{URL}}/people/2
+Content-Type : application/json
+

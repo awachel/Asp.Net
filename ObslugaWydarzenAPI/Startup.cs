@@ -1,4 +1,5 @@
 using Domain.DAL;
+using Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,7 +33,8 @@ namespace ObslugaWydarzenAPI
         {
             services.AddTransient<DbContext, Context>();
             services.AddDbContext<Context>(o=>o.UseSqlServer(Configuration.GetConnectionString("SQLServer")));
-            services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IRepository<person>, Repository<person>>();
+            services.AddTransient<IRepository<Event>, Repository<Event>>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

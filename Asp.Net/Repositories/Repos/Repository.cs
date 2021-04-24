@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using EntityHelper;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using System;
@@ -10,29 +11,29 @@ using System.Threading.Tasks;
 
 namespace Repositories.Repos
 {
-    public class PersonRepository : IDisposable, IPersonRepository
+    public class Repository<T> : IDisposable, IRepository<T> where T : Entity
     {
 
         private readonly DbContext context;
-        private readonly DbSet<person> dbSet = null;
+        private readonly DbSet<T> dbSet = null;
 
-        public PersonRepository(DbContext context)
+        public Repository(DbContext context)
         {
             this.context = context;
-            dbSet = context.Set<person>();
+            dbSet = context.Set<T>();
         }
 
-        public async Task<person> GetAsync(int id)
+        public async Task<T> GetAsync(int id)
         {
             return await dbSet.FindAsync(id);
         }
 
-        public async Task<List<person>> GetListAsync()
+        public async Task<List<T>> GetListAsync()
         {
             return await dbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<int> AddAsync(person item)
+        public async Task <int> AddAsync(T item)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace Repositories.Repos
             }
         }
 
-        public async Task<bool> UpdateAsync(person item)
+        public async Task<bool> UpdateAsync(T item)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace Repositories.Repos
             return false;
         }
 
-        public IQueryable<person> FindBy(Expression<Func<person, bool>> predicate)
+        public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             return dbSet.Where(predicate).AsQueryable();
         }
@@ -85,6 +86,8 @@ namespace Repositories.Repos
         {
             context.Dispose();
         }
+
+        
     }
 
 }
