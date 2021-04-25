@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ObslugaWydarzenAPI.Middleware;
 using Repositories.Interfaces;
 using Repositories.Repos;
 using System;
@@ -35,6 +36,7 @@ namespace ObslugaWydarzenAPI
             services.AddDbContext<Context>(o=>o.UseSqlServer(Configuration.GetConnectionString("SQLServer")));
             services.AddTransient<IRepository<person>, Repository<person>>();
             services.AddTransient<IRepository<Event>, Repository<Event>>();
+            services.AddLoggers();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ObslugaWydarzenAPI.Controllers
     
     public class PeopleController : SharedController<person>
     {
-        public PeopleController(IRepository<person> repository) : base(repository)
+        public PeopleController(IRepository<person> repository, ILogger<PeopleController> logger) : base(repository, logger)
         {
 
         }

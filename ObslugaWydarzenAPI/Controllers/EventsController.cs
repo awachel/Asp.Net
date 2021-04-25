@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ObslugaWydarzenAPI.Controllers
 
     public class EventsController : SharedController<Event>
     {
-        public EventsController(IRepository<Event> repository) : base(repository)
+        public EventsController(IRepository<Event> repository, ILogger<EventsController> logger) : base(repository, logger)
         {
 
         }
