@@ -13,6 +13,8 @@ namespace ObslugaWydarzenAPI.Middleware
         public static IServiceCollection AddLoggers(this IServiceCollection services)
         {
             services.AddLogger<EventsController>();
+            services.AddLogger<PeopleController>();
+
             return services;
         } 
     }

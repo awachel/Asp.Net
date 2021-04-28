@@ -1,11 +1,11 @@
-﻿using Domain.Models;
-using Microsoft.AspNetCore.Http;
+﻿using ApiKeyAuth.Attributes;
+using Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Repositories.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +13,7 @@ namespace ObslugaWydarzenAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public abstract class SharedController<T>  : ControllerBase where T: EntityHelper.Entity
     {
         private readonly IRepository<T> repository;
@@ -25,6 +26,7 @@ namespace ObslugaWydarzenAPI.Controllers
             Logger = logger;
         }
 
+        
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -51,6 +53,7 @@ namespace ObslugaWydarzenAPI.Controllers
 
         }
         [HttpPost]
+        [KeyAuthorize(RoleType.Customer, RoleType.Employee)]
         public async Task<ActionResult<T>> Post(T item)
         {
             await repository.AddAsync(item);
@@ -59,6 +62,7 @@ namespace ObslugaWydarzenAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [KeyAuthorize(RoleType.Customer, RoleType.Employee)]
         public async Task<ActionResult> Put(int id, T item)
         {
             if (id != item.Id)
@@ -83,6 +87,7 @@ namespace ObslugaWydarzenAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [KeyAuthorize(RoleType.Customer, RoleType.Employee)]
         public async Task<ActionResult<T>> Delete(int id)
         {
             var item = await repository.GetAsync(id);

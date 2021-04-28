@@ -17,6 +17,7 @@ Content-Type : application/json
 
 POST {{URL}}/people
 Content-Type : application/json
+api-key: customer-secret
 
 {
   "id": 0,
@@ -46,6 +47,7 @@ Content-Type : application/json
 
 ###
 
-DELETE {{URL}}/people/2
+DELETE {{URL}}/people/4
 Content-Type : application/json
+api-key: employee-secret
 
