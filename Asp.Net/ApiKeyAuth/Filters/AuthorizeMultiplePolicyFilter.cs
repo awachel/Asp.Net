@@ -1,7 +1,9 @@
 ﻿using Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -27,7 +29,7 @@ namespace ApiKeyAuth.Filters
         }
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
-            if (context.Filters.Any(item => item is IAllowAnonymousFilter))
+            if (context.ActionDescriptor is ControllerActionDescriptor controllerActionDescriptor && controllerActionDescriptor.MethodInfo.GetCustomAttributes(false).Any(a => a is AllowAnonymousAttribute))
             {
                 return;
             }
@@ -36,7 +38,7 @@ namespace ApiKeyAuth.Filters
             if (key != null)
             {
                 string role = repo.CheckApiKey(key) ? repo.GetRole(key) : null;
-                if (role !=null && roles.Select(r => r.ToString()).Contains(role))
+                if (role !=null && (roles.Length == 0 || roles.Select(r => r.ToString()).Contains(role)))
                 {
                     return;
                 }
